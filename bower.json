@@ -1,0 +1,22 @@
+{
+  "name": "ahs",
+  "version": "0.0.0",
+  "authors": [
+    "Aaron McMurter"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "bootstrap": "~3.3.5",
+    "angular-route": "~1.4.4"
+  }
+}

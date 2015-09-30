@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>POSTGRES TEST</title>
+        
+        <!-- CSS includes -->
+        <link rel="stylesheet" href="bower/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="app/assets/css/master.css">
+        
+    </head>
+    <body>
+        
+        <div class="container-fluid">
+            
+            <!-- view container -->
+            <div ng-view autoscroll></div>
+                
+        </div>
+        
+        <!-- lib includes -->
+        <script src="bower/angular/angular.js"></script>
+        <script src="bower/angular-route/angular-route.min.js"></script>
+        <script src="bower/jquery/dist/jquery.min.js"></script>
+        <script src="bower/bootstrap/dist/js/bootstrap.min.js"></script>
+        
+        <!-- app includes -->
+        <script src="app/app.js"></script>
+        <script src="app/modules/home.js"></script>
+        <script src="app/controllers/home.controller.js"></script>
+        
+    </body>
+</html>
