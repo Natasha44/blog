@@ -1,0 +1,24 @@
+<div class="container">
+   <h1>Users</h1>
+    <a href="/#/add-user" class="btn btn-default">Create User</a>
+    <table class="table table-stripped table-responsive">
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>User Name</th>
+        <th>Role Id</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <tr ng-repeat="users in users">
+            <td>{{ users.id }}</td>
+            <td>{{ users.first_name }}</td>
+            <td>{{ users.last_name }}</td>
+            <td>{{ users.email }}</td>
+            <td>{{ users.user_name }}</td>
+            <td>{{ users.role_id }}</td>
+            <td><a href="/#/edit-user/{{users.id}}" class="btn btn-default">Edit</a></td>
+            <td><button class="btn btn-default" type="submit" ng-click="deleteUser()">Delete</button></td>
+        </tr>
+    </table>
+</div>

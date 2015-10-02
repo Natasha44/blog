@@ -1,41 +1,28 @@
 <div class="container">
    <h1>Blogs</h1>
-    <button class="btn btn-default" type="submit" ng-click="addBlog()">Create Blog</button>
+    <a href="/#/add-blog" class="btn btn-default">Create Blog</a>
     <table class="table table-stripped table-responsive">
         <th>Id</th>
         <th>Title</th>
         <th>Date Created</th>
-        <th>Body</th>
         <th>Published</th>
         <th>Date Published</th>
-        <th>Last Update</th>
+        <th>Last Updated</th>
         <th>User Id</th>
         <th>Last Updated User Id</th>
         <th>Edit</th>
         <th>Delete</th>
-        <tr ng-repeat="blogs in blogs">
-            <td>{{ blogs.id }}</td>
-            <td>{{ blogs.title }}</td>
-            <td>{{ blogs.date_created }}</td>
-            <td>{{ blogs.body }}</td>
-            <td>{{ blogs.published }}</td>
-            <td>{{ blogs.date_published }}</td>
-            <td>{{ blogs.last_update }}</td>
-            <td>{{ blogs.user_id }}</td>
-            <td>{{ blogs.last_updated_user_id }}</td>
-            <td><button class="btn btn-default" type="submit" ng-click="editBlog()">Edit</button></td>
+        <tr ng-repeat="blog in blogs">
+            <td>{{ blog.id }}</td>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.date_created }}</td>
+            <td>{{ blog.published }}</td>
+            <td>{{ date_published }}</td>
+            <td>{{ blog.last_updated }}</td>
+            <td>{{ blog.user_id }}</td>
+            <td>{{ blog.last_updated_user_id }}</td>
+            <td><a href="/#/edit-blog/{{ blog.id }}" class="btn btn-default">Edit</a></td>
             <td><button class="btn btn-default" type="submit" ng-click="deleteBlog()">Delete</button></td>
         </tr>
     </table>
-    <form>
-      <div class="form-group">
-        <label for="title">Blog Title</label>
-        <input id="title" name="title" ng-model="title" type="text" class="form-control" placeholder="Title">
-      </div>
-      <div class="form-group">
-        <label for="body">Blog Body</label>
-        <input id="body" name="body" ng-model="body" type="text" class="form-control" placeholder="Body">
-      </div>
-      <button type="submit" class="btn btn-default" ng-click="addBlog()">Add Blog</button>
-    </form>
 </div>

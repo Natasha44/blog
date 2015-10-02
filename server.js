@@ -184,3 +184,119 @@ var express = require('express'),
 		});
 		
 	});
+
+	// GET blog tags.
+	app.get('/api/blog-tags', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(blog_tags)) FROM blog_tags";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+		
+	});
+	
+	// POST blog tags.
+	app.post('/api/blog-tags', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "INSERT INTO blog_tags (name) VALUES ('" + req.body.name + "')";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+
+	// GET image tags.
+	app.get('/api/image-tags', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(image_tags)) FROM image_tags";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+		
+	});
+	
+	// POST image tags.
+	app.post('/api/image-tags', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "INSERT INTO image_tags (name) VALUES ('" + req.body.name + "')";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+
+	// POST image tags.
+	app.delete('/api/image-tags/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "DELETE FROM image_tags WHERE id = '" + req.body.id + "'";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
