@@ -1,0 +1,27 @@
+<div class="container">
+  <p>{{ user.id }}</p>
+   <h1>Edit User</h1>
+    <form method="post" name="editUserForm">
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input id="first_name" name="first_name" ng-model="user.first_name" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input id="last_name" name="last_name" ng-model="user.last_name" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" ng-model="user.password" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" ng-model="user.email" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="user_name">User Name</label>
+            <input id="user_name" name="user_name" ng-model="user.user_name" type="text" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="saveChanges(user)">Save Changes</button>
+    </form>
+</div>

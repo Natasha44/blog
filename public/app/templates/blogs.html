@@ -1,0 +1,28 @@
+<div class="container">
+   <h1>Blogs</h1>
+    <a href="/#/add-blog" class="btn btn-default">Create Blog</a>
+    <table class="table table-stripped table-responsive">
+        <th>Id</th>
+        <th>Title</th>
+        <th>Date Created</th>
+        <th>Published</th>
+        <th>Date Published</th>
+        <th>Last Updated</th>
+        <th>User Id</th>
+        <th>Last Updated User Id</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <tr ng-repeat="blog in blogs">
+            <td>{{ blog.id }}</td>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.date_created }}</td>
+            <td>{{ blog.published }}</td>
+            <td>{{ date_published }}</td>
+            <td>{{ blog.last_updated }}</td>
+            <td>{{ blog.user_id }}</td>
+            <td>{{ blog.last_updated_user_id }}</td>
+            <td><a href="/#/edit-blog/{{ blog.id }}" class="btn btn-default">Edit</a></td>
+            <td><button class="btn btn-default" type="submit" ng-click="deleteBlog()">Delete</button></td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,9 @@
+<div class="container">
+    <form method="post" name="editBlogTagForm">
+      <div class="form-group">
+        <label for="blog_tag_name">Blog Tag Name</label>
+        <input id="name" name="name" ng-model="blogTag.name" type="text" class="form-control" placeholder="Blog Tag Name">
+      </div>
+      <button type="submit" class="btn btn-default" ng-click="saveChanges(blogTag)">Add Blog Tag</button>
+    </form>
+</div>
