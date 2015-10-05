@@ -18,11 +18,11 @@ angular.module('app', [
             templateUrl: 'app/templates/blogs.html',
             controller: 'blogsController'
         })
-        .when('/add-blog', {
+        .when('/blogs/add', {
             templateUrl: 'app/templates/add-blog.html',
             controller: 'blogsController'
         })
-        .when('/edit-blog/:id', {
+        .when('/blogs/edit/:id', {
             templateUrl: 'app/templates/edit-blog.html',
             controller: 'blogsController'
         })
@@ -30,11 +30,11 @@ angular.module('app', [
             templateUrl: 'app/templates/roles.html',
             controller: 'rolesController'
         })
-        .when('/add-role', {
+        .when('/roles/add', {
             templateUrl: 'app/templates/add-role.html',
             controller: 'rolesController'
         })
-        .when('/edit-role/:id', {
+        .when('/roles/edit/:id', {
             templateUrl: 'app/templates/edit-role.html',
             controller: 'rolesController'
         })
@@ -42,11 +42,11 @@ angular.module('app', [
             templateUrl: 'app/templates/users.html',
             controller: 'usersController'
         })
-        .when('/add-user', {
+        .when('/users/add', {
             templateUrl: 'app/templates/add-user.html',
             controller: 'usersController'
         })
-        .when('/edit-user/:id', {
+        .when('/users/edit/:id', {
             templateUrl: 'app/templates/edit-user.html',
             controller: 'usersController'
         })
@@ -54,11 +54,11 @@ angular.module('app', [
             templateUrl: 'app/templates/blog-tags.html',
             controller: 'blogTagsController'
         })
-        .when('/add-blog-tag', {
+        .when('/blog-tags/add', {
             templateUrl: 'app/templates/add-blog-tag.html',
             controller: 'blogTagsController'
         })
-        .when('/edit-blog-tag/:id', {
+        .when('/blog-tags/edit/:id', {
             templateUrl: 'app/templates/edit-blog-tag.html',
             controller: 'blogTagsController'
         })
@@ -66,11 +66,11 @@ angular.module('app', [
             templateUrl: 'app/templates/image-tags.html',
             controller: 'imageTagsController'
         })
-        .when('/add-image-tag', {
+        .when('/image-tags/add', {
             templateUrl: 'app/templates/add-image-tag.html',
             controller: 'imageTagsController'
         })
-        .when('/edit-image-tag/:id', {
+        .when('/image-tags/edit/:id', {
             templateUrl: 'app/templates/edit-image-tag.html',
             controller: 'imageTagsController'
         })

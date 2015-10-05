@@ -10,7 +10,7 @@
             <td>{{ blogTag.id }}</td>
             <td>{{ blogTag.name }}</td>
             <td><a href="/#/edit-blog-tag/{{ blogTag.id }}" class="btn btn-default">Edit</a></td>
-            <td><button class="btn btn-default" type="submit" ng-click="deleteBlogTag()">Delete</button></td>
+            <td><button class="btn btn-default" type="submit" ng-click="deleteBlogTag(blogTag.id)">Delete</button></td>
         </tr>
     </table>
 </div>
