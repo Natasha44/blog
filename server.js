@@ -1,9 +1,10 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
 	pg = require('pg'),
+	config = require('./config'),
 	app = express(),
-	port = process.env.port || 8888,
-	conString = "postgres://ndxqhnhc:ByIp6McOEziNRY42C5-XJQpAPiUq83wh@nutty-custard-apple.db.elephantsql.com:5432/ndxqhnhc";
+	port = process.env.port || config.defaultPort,
+	conString = config.dbConnectionString;
 	
 	app.use(express.static(__dirname + '/public'));
 	app.use(bodyParser.json());
@@ -277,11 +278,13 @@ var express = require('express'),
 		
 	});
 
-	// POST image tags.
+	// DELETE image tags.
 	app.delete('/api/image-tags/:id', function (req, res) {
 		
+		console.log(req.params);
+		
 		var client = new pg.Client(conString),
-			query = "DELETE FROM image_tags WHERE id = '" + req.body.id + "'";
+			query = "DELETE FROM image_tags WHERE id = " + req.params.id + ";";
 		
 		console.log(query);
 		

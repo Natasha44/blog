@@ -10,7 +10,8 @@
             <td>{{ imageTag.id }}</td>
             <td>{{ imageTag.name }}</td>
             <td><a href="/#/edit-image-tag/{{ imageTag.id }}" class="btn btn-default">Edit</a></td>
-            <td><button class="btn btn-default" type="submit" ng-click="deleteImageTag()">Delete</button></td>
+            <td><button class="btn btn-default" type="submit" 
+            ng-click="deleteImageTag(imageTag.id)">Delete</button></td>
         </tr>
     </table>
 </div>

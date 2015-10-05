@@ -8,7 +8,7 @@ angular.module('imageTags.controller', [])
         })
         .error(function(data){
             
-        })
+        });
     }
     
     getImageTags();
@@ -25,18 +25,18 @@ angular.module('imageTags.controller', [])
         })
         .error(function(data){
             
-        })
+        });
     }
     
-    $scope.deleteImageTag = function() {     
-        var id = $scope.imageTags.id;
+    $scope.deleteImageTag = function(id) {     
+  
         $http.delete('/api/image-tags/' + id)
         .success(function(data){
-            $location.path('/image-tags');
+            getImageTags();
         })
         .error(function(data){
             
-        })
+        });
     }
     
     $scope.saveChanges = function(imageTag){
