@@ -30,7 +30,7 @@ angular.module('imageTags.controller', [])
     
     $scope.deleteImageTag = function(id) {     
   
-        $http.delete('/api/image-tags/' + id)
+        $http.delete('/api/image-tag/' + id)
         .success(function(data){
             getImageTags();
         })

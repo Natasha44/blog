@@ -32,6 +32,17 @@ angular.module('users.controller', [])
         })
     }
     
+    $scope.deleteUser = function(id) {     
+  
+        $http.delete('/api/user/' + id)
+        .success(function(data){
+            getUsers();
+        })
+        .error(function(data){
+            
+        });
+    }
+    
     $scope.saveChanges = function(user){
         console.log(user);
     }

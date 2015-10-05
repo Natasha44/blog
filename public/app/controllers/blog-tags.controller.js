@@ -27,6 +27,17 @@ angular.module('blogTags.controller', [])
         })
     }
     
+    $scope.deleteBlogTag = function(id) {     
+  
+        $http.delete('/api/blog-tags/' + id)
+        .success(function(data){
+            getBlogTags();
+        })
+        .error(function(data){
+            
+        });
+    }
+    
     $scope.saveChanges = function(blogTag){
         console.log(blogTag);
     }

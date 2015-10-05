@@ -22,7 +22,7 @@
             <td>{{ blog.user_id }}</td>
             <td>{{ blog.last_updated_user_id }}</td>
             <td><a href="/#/edit-blog/{{ blog.id }}" class="btn btn-default">Edit</a></td>
-            <td><button class="btn btn-default" type="submit" ng-click="deleteBlog()">Delete</button></td>
+            <td><button class="btn btn-default" type="submit" ng-click="deleteBlog(blog.id)">Delete</button></td>
         </tr>
     </table>
 </div>

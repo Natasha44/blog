@@ -10,15 +10,15 @@
         <th>Role Id</th>
         <th>Edit</th>
         <th>Delete</th>
-        <tr ng-repeat="users in users">
-            <td>{{ users.id }}</td>
-            <td>{{ users.first_name }}</td>
-            <td>{{ users.last_name }}</td>
-            <td>{{ users.email }}</td>
-            <td>{{ users.user_name }}</td>
-            <td>{{ users.role_id }}</td>
+        <tr ng-repeat="user in users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.user_name }}</td>
+            <td>{{ user.role_id }}</td>
             <td><a href="/#/edit-user/{{users.id}}" class="btn btn-default">Edit</a></td>
-            <td><button class="btn btn-default" type="submit" ng-click="deleteUser()">Delete</button></td>
+            <td><button class="btn btn-default" type="submit" ng-click="deleteUser(user.id)">Delete</button></td>
         </tr>
     </table>
 </div>

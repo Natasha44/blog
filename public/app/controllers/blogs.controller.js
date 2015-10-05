@@ -41,6 +41,17 @@ angular.module('blogs.controller', [])
         });
     }
     
+    $scope.deleteBlog = function(id) {     
+  
+        $http.delete('/api/blog/' + id)
+        .success(function(data){
+            getBlogs();
+        })
+        .error(function(data){
+            
+        });
+    }
+    
     $scope.saveChanges = function(blog){
         console.log(blog);
     }

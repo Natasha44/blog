@@ -10,7 +10,7 @@
             <td>{{ role.id }}</td>
             <td>{{ role.name }}</td>
             <td><a href="/#/edit-role/{{role.id}}" class="btn btn-default">Edit</a></td>
-            <td><button class="btn btn-default" type="submit" ng-click="deleteRole()">Delete</button></td>
+            <td><button class="btn btn-default" type="submit" ng-click="deleteRole(role.id)">Delete</button></td>
         </tr>
     </table>
 </div>
