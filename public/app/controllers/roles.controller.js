@@ -1,5 +1,5 @@
 angular.module('roles.controller', [])
-.controller('rolesController', function($scope, $http, $location){
+.controller('rolesController', function($scope, $http, $location, $routeParams){
 
     function getRoles() {
         $http.get('/api/roles')
@@ -28,8 +28,7 @@ angular.module('roles.controller', [])
     }
     
     $scope.deleteRole = function(id) {     
-  
-        $http.delete('/api/role/' + id)
+        $http.delete('/api/roles/' + id)
         .success(function(data){
             getRoles();
         })
@@ -37,8 +36,5 @@ angular.module('roles.controller', [])
             
         });
     }
-    
-    $scope.saveChanges = function(role){
-        console.log(role);
-    }
+
 });

@@ -1,6 +1,6 @@
 <div class="container">
    <h1>Users</h1>
-    <a href="/#/add-user" class="btn btn-default">Create User</a>
+    <a href="/#/users/add" class="btn btn-default">Create User</a>
     <table class="table table-stripped table-responsive">
         <th>Id</th>
         <th>First Name</th>
@@ -17,7 +17,7 @@
             <td>{{ user.email }}</td>
             <td>{{ user.user_name }}</td>
             <td>{{ user.role_id }}</td>
-            <td><a href="/#/edit-user/{{users.id}}" class="btn btn-default">Edit</a></td>
+            <td><a href="/#/users/edit/{{ user.id }}" class="btn btn-default">Edit</a></td>
             <td><button class="btn btn-default" type="submit" ng-click="deleteUser(user.id)">Delete</button></td>
         </tr>
     </table>

@@ -1,0 +1,1 @@
+angular.module('editRole', ['editRole.controller']);

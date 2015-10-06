@@ -1,5 +1,5 @@
 angular.module('imageTags.controller', [])
-.controller('imageTagsController', function($scope, $http, $location){
+.controller('imageTagsController', function($scope, $http, $location, $routeParams){
     
     function getImageTags() {
         $http.get('/api/image-tags')
@@ -30,7 +30,7 @@ angular.module('imageTags.controller', [])
     
     $scope.deleteImageTag = function(id) {     
   
-        $http.delete('/api/image-tag/' + id)
+        $http.delete('/api/image-tags/' + id)
         .success(function(data){
             getImageTags();
         })
@@ -40,6 +40,18 @@ angular.module('imageTags.controller', [])
     }
     
     $scope.saveChanges = function(imageTag){
-        console.log(imageTag);
+        
+        var updatedImageTag = {
+            name: imageTag.name,
+            id: $routeParams.id
+        };
+        
+        $http.put('/api/image-tags/' + updatedImageTag.id, updatedImageTag)
+        .success(function(data){
+            $location.path('/image-tags');
+        })
+        .error(function(data){
+            
+        });
     }
 })

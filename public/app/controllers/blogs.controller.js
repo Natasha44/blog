@@ -1,5 +1,5 @@
 angular.module('blogs.controller', [])
-.controller('blogsController', function($scope, $http, $location){
+.controller('blogsController', function($scope, $http, $location, $routeParams){
     
     function getBlogs() {
         $http.get('/api/blogs')
@@ -43,7 +43,7 @@ angular.module('blogs.controller', [])
     
     $scope.deleteBlog = function(id) {     
   
-        $http.delete('/api/blog/' + id)
+        $http.delete('/api/blogs/' + id)
         .success(function(data){
             getBlogs();
         })
@@ -51,9 +51,6 @@ angular.module('blogs.controller', [])
             
         });
     }
-    
-    $scope.saveChanges = function(blog){
-        console.log(blog);
-    }
+   
 });
 

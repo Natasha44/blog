@@ -1,5 +1,5 @@
 angular.module('users.controller', [])
-.controller('usersController', function($scope, $http, $location) {
+.controller('usersController', function($scope, $http, $location, $routeParams) {
     
     function getUsers() {
         $http.get('/api/users')
@@ -34,7 +34,7 @@ angular.module('users.controller', [])
     
     $scope.deleteUser = function(id) {     
   
-        $http.delete('/api/user/' + id)
+        $http.delete('/api/users/' + id)
         .success(function(data){
             getUsers();
         })
@@ -43,7 +43,4 @@ angular.module('users.controller', [])
         });
     }
     
-    $scope.saveChanges = function(user){
-        console.log(user);
-    }
 });

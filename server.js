@@ -54,6 +54,27 @@ var express = require('express'),
 		
 	});
 	
+	// GET user by id.
+	app.get('/api/users/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(users)) FROM users WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+	});
+	
 	// POST users.
 	app.post('/api/users', function (req, res) {
 		
@@ -87,11 +108,41 @@ var express = require('express'),
 	});
 	
 	// DELETE user.
-	app.delete('/api/user/:id', function (req, res) {
+	app.delete('/api/users/:id', function (req, res) {
 
 		var client = new pg.Client(conString),
 			query = "DELETE FROM users WHERE id = " + req.params.id + ";";
 		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+	
+	// UPDATE user.
+	app.put('/api/users/:id', function (req, res) {
+		var client = new pg.Client(conString),
+			query = "UPDATE users " + 
+			"SET first_name = '" + req.body.first_name + "', " +
+			"last_name = '" + req.body.last_name + "', " +
+			"user_name = '" +  req.body.user_name + "', " +
+			"password_hash = '" +  req.body.password_hash + "', " +
+			"email= '" +  req.body.email + "', " +
+			"role_id = '" +  req.body.role_id + "'" +
+			"WHERE id = " + req.params.id + ";";
+			
 		console.log(query);
 		
 		client.connect(function(err) {
@@ -129,7 +180,27 @@ var express = require('express'),
 				res.json(result.rows[0].array_to_json);
 			});
 		});
+	});
+	
+	// GET roles by id.
+	app.get('/api/roles/:id', function (req, res) {
 		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(roles)) FROM roles WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
 	});
 	
 	// POST roles.
@@ -157,10 +228,33 @@ var express = require('express'),
 	});
 	
 	// DELETE role.
-	app.delete('/api/role/:id', function (req, res) {
+	app.delete('/api/roles/:id', function (req, res) {
 
 		var client = new pg.Client(conString),
 			query = "DELETE FROM roles WHERE id = " + req.params.id + ";";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+	
+	// UPDATE role.
+	app.put('/api/roles/:id', function (req, res) {
+		var client = new pg.Client(conString),
+			query = "UPDATE roles SET name = '"+ req.body.name +"' WHERE id = " + req.params.id + ";";
 		
 		console.log(query);
 		
@@ -202,6 +296,27 @@ var express = require('express'),
 		
 	});
 	
+	// GET blog by id.
+	app.get('/api/blogs/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(blogs)) FROM blogs WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+	});
+	
 	// POST blogs.
 	app.post('/api/blogs', function (req, res) {
 		
@@ -235,12 +350,42 @@ var express = require('express'),
 	});
 	
 	// DELETE blog.
-	app.delete('/api/blog/:id', function (req, res) {
+	app.delete('/api/blogs/:id', function (req, res) {
 		
 		console.log(req.params);
 		
 		var client = new pg.Client(conString),
 			query = "DELETE FROM blogs WHERE id = " + req.params.id + ";";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+
+	// UPDATE blog.
+	app.put('/api/blogs/:id', function (req, res) {
+		var client = new pg.Client(conString),
+			query = "UPDATE blogs " +
+			"SET title = '" + req.body.title + 
+			"', user_id = " + req.body.user_id +
+			", date_created = now()," +
+			"body = '" + req.body.body +
+			"', last_updated = now(), " +
+			"last_updated_user_id = " + req.body.user_id + 
+			"WHERE id = " + req.params.id + ";";
 		
 		console.log(query);
 		
@@ -282,6 +427,27 @@ var express = require('express'),
 		
 	});
 	
+	// GET blog tags by id.
+	app.get('/api/blog-tags/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(blog_tags)) FROM blog_tags WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+	});
+	
 	// POST blog tags.
 	app.post('/api/blog-tags', function (req, res) {
 		
@@ -311,6 +477,29 @@ var express = require('express'),
 		
 		var client = new pg.Client(conString),
 			query = "DELETE FROM blog_tags WHERE id = " + req.params.id + ";";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+	
+	// UPDATE blog tags.
+	app.put('/api/blog-tags/:id', function (req, res) {
+		var client = new pg.Client(conString),
+			query = "UPDATE blog_tags SET name = '"+ req.body.name +"' WHERE id = " + req.params.id + ";";
 		
 		console.log(query);
 		
@@ -377,10 +566,33 @@ var express = require('express'),
 	});
 
 	// DELETE image tags.
-	app.delete('/api/image-tag/:id', function (req, res) {
+	app.delete('/api/image-tags/:id', function (req, res) {
 		
 		var client = new pg.Client(conString),
 			query = "DELETE FROM image_tags WHERE id = " + req.params.id + ";";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+
+	// UPDATE image tags.
+	app.put('/api/image-tags/:id', function (req, res) {
+		var client = new pg.Client(conString),
+			query = "UPDATE image_tags SET name = '"+ req.body.name +"' WHERE id = " + req.params.id + ";";
 		
 		console.log(query);
 		

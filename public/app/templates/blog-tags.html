@@ -1,6 +1,6 @@
 <div class="container">
    <h1>Blog Tags</h1>
-    <a href="/#/add-blog-tag" class="btn btn-default">Create Blog Tag</a>
+    <a href="/#/blog-tags/add" class="btn btn-default">Create Blog Tag</a>
     <table class="table table-stripped table-responsive">
         <th>Id</th>
         <th>Name</th>
@@ -9,7 +9,7 @@
         <tr ng-repeat="blogTag in blogTags">
             <td>{{ blogTag.id }}</td>
             <td>{{ blogTag.name }}</td>
-            <td><a href="/#/edit-blog-tag/{{ blogTag.id }}" class="btn btn-default">Edit</a></td>
+            <td><a href="/#/blog-tags/edit/{{ blogTag.id }}" class="btn btn-default">Edit</a></td>
             <td><button class="btn btn-default" type="submit" ng-click="deleteBlogTag(blogTag.id)">Delete</button></td>
         </tr>
     </table>
