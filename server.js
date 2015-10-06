@@ -54,6 +54,27 @@ var express = require('express'),
 		
 	});
 	
+	// GET user by id.
+	app.get('/api/users/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(users)) FROM users WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+	});
+	
 	// POST users.
 	app.post('/api/users', function (req, res) {
 		
@@ -159,7 +180,27 @@ var express = require('express'),
 				res.json(result.rows[0].array_to_json);
 			});
 		});
+	});
+	
+	// GET roles by id.
+	app.get('/api/roles/:id', function (req, res) {
 		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(roles)) FROM roles WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
 	});
 	
 	// POST roles.
@@ -253,6 +294,27 @@ var express = require('express'),
 			});
 		});
 		
+	});
+	
+	// GET blog by id.
+	app.get('/api/blogs/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(blogs)) FROM blogs WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
 	});
 	
 	// POST blogs.
@@ -363,6 +425,27 @@ var express = require('express'),
 			});
 		});
 		
+	});
+	
+	// GET blog tags by id.
+	app.get('/api/blog-tags/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(blog_tags)) FROM blog_tags WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
 	});
 	
 	// POST blog tags.

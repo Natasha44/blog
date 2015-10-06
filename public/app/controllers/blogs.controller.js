@@ -51,24 +51,6 @@ angular.module('blogs.controller', [])
             
         });
     }
-    
-    $scope.saveChanges = function(blog){
-        var updatedBlog = {
-            id: $routeParams.id,
-            title: blog.title,
-            user_id: 1,
-            body: blog.body,
-            user_id: 1
-        };
-        
-        console.log(updatedBlog);
-        $http.put('/api/blogs/' + updatedBlog.id, updatedBlog)
-        .success(function(data){
-            $location.path('/blogs');
-        })
-        .error(function(data){
-            
-        });
-    }
+   
 });
 

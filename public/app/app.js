@@ -6,6 +6,10 @@ angular.module('app', [
         'users',
         'blogTags',
         'imageTags',
+        'editRole',
+        'editBlogTag',
+        'editBlog',
+        'editUser',
         'ngRoute'
     ])
     .config(function($routeProvider){
@@ -24,7 +28,7 @@ angular.module('app', [
         })
         .when('/blogs/edit/:id', {
             templateUrl: 'app/templates/edit-blog.html',
-            controller: 'blogsController'
+            controller: 'editBlogController'
         })
         .when('/roles', {
             templateUrl: 'app/templates/roles.html',
@@ -36,7 +40,7 @@ angular.module('app', [
         })
         .when('/roles/edit/:id', {
             templateUrl: 'app/templates/edit-role.html',
-            controller: 'rolesController'
+            controller: 'editRoleController'
         })
         .when('/users', {
             templateUrl: 'app/templates/users.html',
@@ -48,7 +52,7 @@ angular.module('app', [
         })
         .when('/users/edit/:id', {
             templateUrl: 'app/templates/edit-user.html',
-            controller: 'usersController'
+            controller: 'editUserController'
         })
         .when('/blog-tags', {
             templateUrl: 'app/templates/blog-tags.html',
@@ -60,7 +64,7 @@ angular.module('app', [
         })
         .when('/blog-tags/edit/:id', {
             templateUrl: 'app/templates/edit-blog-tag.html',
-            controller: 'blogTagsController'
+            controller: 'editBlogTagController'
         })
         .when('/image-tags', {
             templateUrl: 'app/templates/image-tags.html',
