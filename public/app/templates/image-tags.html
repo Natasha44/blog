@@ -1,6 +1,6 @@
 <div class="container">
    <h1>Image Tags</h1>
-    <a href="/#/add-image-tag" class="btn btn-default">Create Image Tag</a>
+    <a href="/#/image-tags/add" class="btn btn-default">Create Image Tag</a>
     <table class="table table-stripped table-responsive">
         <th>Id</th>
         <th>Name</th>
@@ -9,7 +9,7 @@
         <tr ng-repeat="imageTag in imageTags">
             <td>{{ imageTag.id }}</td>
             <td>{{ imageTag.name }}</td>
-            <td><a href="/#/edit-image-tag/{{ imageTag.id }}" class="btn btn-default">Edit</a></td>
+            <td><a href="/#/image-tags/edit/{{ imageTag.id }}" class="btn btn-default">Edit</a></td>
             <td><button class="btn btn-default" type="submit" 
             ng-click="deleteImageTag(imageTag.id)">Delete</button></td>
         </tr>

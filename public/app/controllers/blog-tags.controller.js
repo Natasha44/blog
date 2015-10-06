@@ -1,5 +1,5 @@
 angular.module('blogTags.controller', [])
-.controller('blogTagsController', function($scope, $http, $location){
+.controller('blogTagsController', function($scope, $http, $location, $routeParams){
     
     function getBlogTags() {
         $http.get('/api/blog-tags')
@@ -39,6 +39,18 @@ angular.module('blogTags.controller', [])
     }
     
     $scope.saveChanges = function(blogTag){
-        console.log(blogTag);
+        
+        var updatedBlogTag = {
+            name: blogTag.name,
+            id: $routeParams.id
+        };
+       
+        $http.put('/api/blog-tags/' + updatedBlogTag.id, updatedBlogTag)
+        .success(function(data){
+            $location.path('/blog-tags');
+        })
+        .error(function(data){
+            
+        });
     }
 });
