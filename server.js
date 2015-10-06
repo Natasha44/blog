@@ -538,7 +538,27 @@ var express = require('express'),
 				res.json(result.rows[0].array_to_json);
 			});
 		});
+	});
+	
+	// GET blog tags by id.
+	app.get('/api/image-tags/:id', function (req, res) {
 		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(image_tags)) FROM image_tags WHERE id = " + req.params.id + ";";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
 	});
 	
 	// POST image tags.
