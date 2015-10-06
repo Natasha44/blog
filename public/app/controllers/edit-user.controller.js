@@ -17,7 +17,7 @@ angular.module('editUser.controller', [])
             id: $routeParams.id,
             first_name: user.first_name,
             last_name: user.last_name,
-            password_hash: user.password,
+            password_hash: user.password_hash,
             email: user.email,
             user_name: user.user_name,
             role_id: 1

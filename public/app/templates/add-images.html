@@ -1,0 +1,17 @@
+<div class="container">
+    <form method="post" name="addImageForm">
+      <div class="form-group">
+        <label for="file_path">File Path</label>
+        <input id="file_path" name="file_path" ng-model="image.file_path" type="text" class="form-control" placeholder="File Path">
+      </div>
+	  <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" name="title" ng-model="image.title" type="text" class="form-control" placeholder="Title">
+      </div>
+	  <div class="form-group">
+        <label for="user_id">User ID</label>
+        <input id="user_id" name="user_id" ng-model="image.user_id" type="text" class="form-control" placeholder="User ID">
+      </div>
+      <button type="submit" class="btn btn-default" ng-click="addImage()">Add Image</button>
+    </form>
+</div>

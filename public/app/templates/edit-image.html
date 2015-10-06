@@ -1,0 +1,13 @@
+<div class="container">
+    <form method="post" name="editImageForm">
+      <div class="form-group">
+        <label for="file_path">File Path</label>
+        <input id="file_path" name="file_path" ng-model="image.file_path" type="text" class="form-control" placeholder="File Path">
+      </div>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" name="title" ng-model="image.title" type="text" class="form-control" placeholder="Title">
+      </div>
+      <button type="submit" class="btn btn-default" ng-click="saveChanges(image)">Save Changes</button>
+    </form>
+</div>

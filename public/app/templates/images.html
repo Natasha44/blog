@@ -1,0 +1,22 @@
+<div class="container">
+   <h1>Images</h1>
+    <a href="/#/images/add" class="btn btn-default">Create Image</a>
+    <table class="table table-stripped table-responsive">
+        <th>Id</th>
+        <th>File Path</th>
+        <th>Title</th>
+		<th>Date Uploaded</th>
+		<th>User Id</th>
+		<th>Edit</th>
+        <th>Delete</th>
+        <tr ng-repeat="image in images">
+            <td>{{ image.id }}</td>
+            <td>{{ image.file_path }}</td>
+			<td>{{ image.title }}</td>
+			<td>{{ image.upload_date }}</td>
+			<td>{{ image.user_id }}</td>
+            <td><a href="/#/images/edit/{{ image.id }}" class="btn btn-default">Edit</a></td>
+            <td><button class="btn btn-default" type="submit" ng-click="deleteImage(image.id)">Delete</button></td>
+        </tr>
+    </table>
+</div>

@@ -10,6 +10,8 @@ angular.module('app', [
         'editBlogTag',
         'editBlog',
         'editUser',
+        'images',
+        'editImage',
         'ngRoute'
     ])
     .config(function($routeProvider){
@@ -77,6 +79,18 @@ angular.module('app', [
         .when('/image-tags/edit/:id', {
             templateUrl: 'app/templates/edit-image-tag.html',
             controller: 'imageTagsController'
+        })
+        .when('/images', {
+            templateUrl: 'app/templates/images.html',
+            controller: 'imagesController'
+        })
+        .when('/images/add', {
+            templateUrl: 'app/templates/add-images.html',
+            controller: 'imagesController'
+        })
+        .when('/images/edit/:id', {
+            templateUrl: 'app/templates/edit-image.html',
+            controller: 'editImageController'
         })
         .when('/oops', {
             templateUrl: 'app/templates/oops.html'

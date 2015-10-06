@@ -611,3 +611,127 @@ var express = require('express'),
 		});
 		
 	});
+	
+	// GET images.
+	app.get('/api/images', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(images)) FROM images";
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+		
+	});
+	
+	// GET images by id
+	app.get('/api/images/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "SELECT array_to_json(array_agg(images)) FROM images WHERE id = " + req.params.id;
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result.rows[0].array_to_json);
+				res.json(result.rows[0].array_to_json);
+			});
+		});
+		
+	});
+	
+	
+	// POST images.
+	app.post('/api/images', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "INSERT INTO images (file_path, title, upload_date, user_id)" +
+					"VALUES (" +
+					"'" + req.body.file_path + "', " +
+					"'" + req.body.title + "', " +
+					"now(), " +
+					"'" + req.body.user_id + "');";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+	
+	// UPDATE images.
+	app.put('/api/images/:id', function (req, res) {
+		var client = new pg.Client(conString),
+			query = "UPDATE images SET " + 
+					"file_path = '"+ req.body.file_path + "', " +
+					"title = '"+ req.body.title + "' " +
+					"WHERE id = " + req.params.id + ";";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
+	
+	// DELETE images.
+	app.delete('/api/images/:id', function (req, res) {
+		
+		var client = new pg.Client(conString),
+			query = "DELETE FROM images WHERE id = " + req.params.id + ";";
+		
+		console.log(query);
+		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.end();
+				console.log(result);
+				res.json(result);
+			});
+		});
+		
+	});
