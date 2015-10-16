@@ -6,7 +6,7 @@
         <th>File Path</th>
         <th>Title</th>
 		<th>Date Uploaded</th>
-		<th>User Id</th>
+		<th>User</th>
 		<th>Edit</th>
         <th>Delete</th>
         <tr ng-repeat="image in images">
@@ -14,7 +14,7 @@
             <td>{{ image.file_path }}</td>
 			<td>{{ image.title }}</td>
 			<td>{{ image.upload_date }}</td>
-			<td>{{ image.user_id }}</td>
+			<td>{{ image.first_name }}</td>
             <td><a href="/#/images/edit/{{ image.id }}" class="btn btn-default">Edit</a></td>
             <td><button class="btn btn-default" type="submit" ng-click="deleteImage(image.id)">Delete</button></td>
         </tr>

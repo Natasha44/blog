@@ -34,21 +34,21 @@ var express = require('express'),
 	// GET users.
 	app.get('/api/users', function (req, res) {
 		
-		var client = new pg.Client(conString),
-			query = "SELECT array_to_json(array_agg(users)) FROM users";
-		
+		var client = new pg.Client(conString);
 		
 		client.connect(function(err) {
-			if(err) {
-				return console.error('could not connect to postgres', err);
-			}
-			client.query(query, function(err, result) {
-				if (err) {
-					return console.error('error running query', err);
-				}
+			var results = [];
+			// SQL Query > Select Data
+			var query = client.query("SELECT users.*, roles.name FROM users INNER JOIN roles ON users.role_id = roles.id;");
+			// Stream results back one row at a time
+			query.on('row', function(row) {
+				results.push(row);
+			});
+
+			// After all data is returned, close connection and return results
+			query.on('end', function() {
 				client.end();
-				console.log(result.rows[0].array_to_json);
-				res.json(result.rows[0].array_to_json);
+				return res.json(results);
 			});
 		});
 		
@@ -277,23 +277,35 @@ var express = require('express'),
 	// GET blogs.
 	app.get('/api/blogs', function (req, res) {
 		
-		var client = new pg.Client(conString),
-			query = "SELECT array_to_json(array_agg(blogs)) FROM blogs";
-		
+		var client = new pg.Client(conString);
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
 			}
-			client.query(query, function(err, result) {
-				if (err) {
-					return console.error('error running query', err);
-				}
-				client.end();
-				console.log(result.rows[0].array_to_json);
-				res.json(result.rows[0].array_to_json);
+			var results = [];
+			var last_updated_user = [];
+			// SQL Query > Select Data
+			var query = client.query("SELECT blogs.*, users.first_name FROM blogs INNER JOIN users ON blogs.user_id = users.id;");
+			var userUpdateQuery = client.query("SELECT users.first_name FROM blogs INNER JOIN users ON blogs.last_updated_user_id = users.id;");
+			// Stream results back one row at a time
+			query.on('row', function(row) {
+				results.push(row);
 			});
-		});
-		
+			
+			userUpdateQuery.on('row', function(row) {
+					last_updated_user.push(row);
+					for (var i = 0; i < results.length; i++)
+					{
+						results[i].last_updated_user = last_updated_user[i];
+					}
+				});
+
+			// After all data is returned, close connection and return results
+			userUpdateQuery.on('end', function() {	
+				client.end();
+				return res.json(results);
+			});
+		});	
 	});
 	
 	// GET blog by id.
@@ -329,7 +341,7 @@ var express = require('express'),
 				"now(), " +
 				"'" + req.body.body + "', " +
 				"now(), " +
-				"'" + req.body.user_id + "');";
+				"'" + req.body.last_updated_user_id + "');";
 		
 		console.log(query);
 				
@@ -404,7 +416,31 @@ var express = require('express'),
 		});
 		
 	});
+	
+	//Get blog blog tags
+		app.get('/api/blog-blog-tags/:id', function (req, res) {
+		var client = new pg.Client(conString);
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			var results = [];
+			// SQL Query > Select Data
+			var query = client.query("SELECT * FROM blog_blog_tags WHERE blog_id = " + req.params.id + ";");
+			// Stream results back one row at a time
+			query.on('row', function(row) {
+				results.push(row);
+			});
 
+			// After all data is returned, close connection and return results
+			query.on('end', function() {	
+				console.log(results);
+				client.end();
+				return res.json(results);
+			});
+		});	
+	});
+	
 	// GET blog tags.
 	app.get('/api/blog-tags', function (req, res) {
 		
@@ -635,20 +671,24 @@ var express = require('express'),
 	// GET images.
 	app.get('/api/images', function (req, res) {
 		
-		var client = new pg.Client(conString),
-			query = "SELECT array_to_json(array_agg(images)) FROM images";
-		
+		var client = new pg.Client(conString);		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
 			}
-			client.query(query, function(err, result) {
-				if (err) {
-					return console.error('error running query', err);
-				}
+			
+			var results = [];
+			// SQL Query > Select Data
+			var query = client.query("SELECT images.*, users.first_name FROM images INNER JOIN users ON images.user_id = users.id;");
+			// Stream results back one row at a time
+			query.on('row', function(row) {
+				results.push(row);
+			});
+
+			// After all data is returned, close connection and return results
+			query.on('end', function() {
 				client.end();
-				console.log(result.rows[0].array_to_json);
-				res.json(result.rows[0].array_to_json);
+				return res.json(results);
 			});
 		});
 		
