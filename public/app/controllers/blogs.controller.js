@@ -1,5 +1,18 @@
-angular.module('blogs.controller', [])
+angular.module('blogs.controller', ['angularjs-dropdown-multiselect'])
 .controller('blogsController', function($scope, $http, $location, $routeParams){
+    
+    $scope.tags = [];
+    $scope.selectedTags = [];
+    
+    function getUsers(){
+        $http.get('/api/users')
+        .success(function(data) {
+            $scope.users = data;
+        }).
+        error(function(data) {
+            console.log("error");
+        });
+    }
     
     function getBlogs() {
         $http.get('/api/blogs')
@@ -21,15 +34,41 @@ angular.module('blogs.controller', [])
 
         });
     }
-    
+   
+
+    function getBlogTags(){
+        $http.get('/api/blog-tags')
+        .success(function(data){
+            $scope.blogTags = data;
+            var i;
+            for (i = 0; i < $scope.blogTags.length; i++) {
+                $scope.blogTag = {}; 
+                $scope.blogTag.id = $scope.blogTags[i].id;
+                $scope.blogTag.label = $scope.blogTags[i].name;
+                $scope.tags.push($scope.blogTag);  
+            }
+        })
+        .error(function(data){
+            console.log("error");
+        })
+    }
+
     getBlogs();
-    
+    getBlogTags();
+      
+    $scope.tagSettings = {
+        smartButtonMaxItems: 3,
+        smartButtonTextConverter: function(itemText, originalItem) {    
+            return itemText;
+        }
+    };
+
     $scope.addBlog = function() {
         var newBlog = {
             title: $scope.blog.title,
-            user_id: 1,
+            user_id: 2,
             body: $scope.blog.body,
-            user_id: 1
+            last_updated_user_id: 12
         };
         
         $http.post('/api/blogs', newBlog)

@@ -1,6 +1,10 @@
 angular.module('editBlog.controller', [])
 .controller('editBlogController', function($scope, $http, $location, $routeParams){
-	function getBlogById() {
+	
+    $scope.tags = [];
+    $scope.selectedTags = [];
+    
+    function getBlogById() {
         $http.get('/api/blogs/' + $routeParams.id)
         .success(function(data){
             $scope.blog = data[0];  
@@ -10,7 +14,45 @@ angular.module('editBlog.controller', [])
         })
     }
     
+    function getBlogTags(){
+        $http.get('/api/blog-tags')
+        .success(function(data){
+            $scope.blogTags = data;
+            var i;
+            for (i = 0; i < $scope.blogTags.length; i++) {
+                $scope.blogTag = {}; 
+                $scope.blogTag.id = $scope.blogTags[i].id;
+                $scope.blogTag.label = $scope.blogTags[i].name;
+                $scope.tags.push($scope.blogTag);  
+            }
+        })
+        .error(function(data){
+            console.log("error");
+        })
+    }
+        
+    function getBlogBlogTags() {
+        $http.get('/api/blog-blog-tags/' + $routeParams.id)
+        .success(function(data) {
+            $scope.selectedTags.id = data[0].blog_tag_id;
+            $scope.selectedTags.name = data[0].blog_tag_id;
+        }).
+        error(function(data) {
+            console.log("error");
+        });
+    }
+    
+    getBlogBlogTags();
+    getBlogTags();
     getBlogById();
+    
+    
+    $scope.tagSettings = {
+        smartButtonMaxItems: 3,
+        smartButtonTextConverter: function(itemText, originalItem) {    
+            return itemText;
+        }
+    };
     
     $scope.saveChanges = function(blog){
         var updatedBlog = {

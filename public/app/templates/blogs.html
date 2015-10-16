@@ -8,8 +8,8 @@
         <th>Published</th>
         <th>Date Published</th>
         <th>Last Updated</th>
-        <th>User Id</th>
-        <th>Last Updated User Id</th>
+        <th>User</th>
+        <th>Last Updated User</th>
         <th>Edit</th>
         <th>Delete</th>
         <tr ng-repeat="blog in blogs">
@@ -19,8 +19,8 @@
             <td>{{ blog.published }}</td>
             <td>{{ date_published }}</td>
             <td>{{ blog.last_updated }}</td>
-            <td>{{ blog.user_id }}</td>
-            <td>{{ blog.last_updated_user_id }}</td>
+            <td>{{ blog.first_name }}</td>
+            <td>{{ blog.last_updated_user.first_name }}</td>
             <td><a href="/#/blogs/edit/{{ blog.id }}" class="btn btn-default">Edit</a></td>
             <td><button class="btn btn-default" type="submit" ng-click="deleteBlog(blog.id)">Delete</button></td>
         </tr>
