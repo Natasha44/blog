@@ -434,7 +434,6 @@ var express = require('express'),
 
 			// After all data is returned, close connection and return results
 			query.on('end', function() {	
-				console.log(results);
 				client.end();
 				return res.json(results);
 			});
