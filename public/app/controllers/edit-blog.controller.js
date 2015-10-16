@@ -34,7 +34,8 @@ angular.module('editBlog.controller', [])
     function getBlogBlogTags() {
         $http.get('/api/blog-blog-tags/' + $routeParams.id)
         .success(function(data) {
-            $scope.tags = data[0].blog_tag_id;
+            $scope.selectedTags.id = data[0].blog_tag_id;
+            $scope.selectedTags.name = data[0].blog_tag_id;
         }).
         error(function(data) {
             console.log("error");
