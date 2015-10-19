@@ -1,6 +1,9 @@
 angular.module('images.controller', [])
 .controller('imagesController', function($scope, $http, $location, $routeParams){
 
+    $scope.tags = [];
+    $scope.selectedTags = [];
+
     function getImages() {
         $http.get('/api/images')
         .success(function(data){
@@ -11,7 +14,32 @@ angular.module('images.controller', [])
         });
     }
     
+    function getImageTags(){
+        $http.get('/api/image-tags')
+        .success(function(data){
+            $scope.imageTags = data;
+            var i;
+            for (i = 0; i < $scope.imageTags.length; i++) {
+                $scope.imageTag = {}; 
+                $scope.imageTag.id = $scope.imageTags[i].id;
+                $scope.imageTag.label = $scope.imageTags[i].name;
+                $scope.tags.push($scope.imageTag);  
+            }
+        })
+        .error(function(data){
+            console.log("error");
+        })
+    }
+    
     getImages();
+    getImageTags();
+    
+    $scope.tagSettings = {
+        smartButtonMaxItems: 3,
+        smartButtonTextConverter: function(itemText, originalItem) {    
+            return itemText;
+        }
+    };
     
     $scope.addImage = function(){
         var newImage = {

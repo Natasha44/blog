@@ -20,7 +20,7 @@ angular.module('users.controller', [])
             password_hash: $scope.user.password,
             email: $scope.user.email,
             user_name: $scope.user.user_name,
-            role_id: 1
+            role_id: 2
         }
         
         $http.post('/api/users', newUser)
