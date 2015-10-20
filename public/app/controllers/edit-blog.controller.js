@@ -34,8 +34,13 @@ angular.module('editBlog.controller', [])
     function getBlogBlogTags() {
         $http.get('/api/blog-blog-tags/' + $routeParams.id)
         .success(function(data) {
-            $scope.selectedTags.id = data[0].blog_tag_id;
-            $scope.selectedTags.name = data[0].blog_tag_id;
+            if(data[0] !== undefined){
+                var selectedTag = {};
+                selectedTag = {
+                    id: data[0].blog_tag_id
+                };
+                $scope.selectedTags.push(selectedTag);
+            }
         }).
         error(function(data) {
             console.log("error");
@@ -45,8 +50,7 @@ angular.module('editBlog.controller', [])
     getBlogBlogTags();
     getBlogTags();
     getBlogById();
-    
-    
+
     $scope.tagSettings = {
         smartButtonMaxItems: 3,
         smartButtonTextConverter: function(itemText, originalItem) {    
@@ -60,7 +64,7 @@ angular.module('editBlog.controller', [])
             title: blog.title,
             user_id: 1,
             body: blog.body,
-            user_id: 1
+            last_updated_user_id: 12
         };
         
         $http.put('/api/blogs/' + updatedBlog.id, updatedBlog)
@@ -70,5 +74,6 @@ angular.module('editBlog.controller', [])
         .error(function(data){
             
         });
+            
     }
 });

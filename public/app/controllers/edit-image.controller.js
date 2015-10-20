@@ -31,8 +31,25 @@ angular.module('editImage.controller', [])
         })
     }
     
+    function getImageImageTags() {
+        $http.get('/api/image-image-tags/' + $routeParams.id)
+        .success(function(data) {
+            if(data[0] !== undefined){
+                var selectedTag = {};
+                selectedTag = {
+                    id: data[0].image_tag_id
+                };
+                    $scope.selectedTags.push(selectedTag);
+                }
+        }).
+        error(function(data) {
+            console.log("error");
+        });
+    }
+    
     getImageById();
     getImageTags();
+    getImageImageTags();
     
     $scope.tagSettings = {
         smartButtonMaxItems: 3,

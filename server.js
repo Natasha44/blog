@@ -417,7 +417,7 @@ var express = require('express'),
 		
 	});
 	
-	//Get blog blog tags
+	//Get blog blog tags by id
 		app.get('/api/blog-blog-tags/:id', function (req, res) {
 		var client = new pg.Client(conString);
 		client.connect(function(err) {
@@ -665,6 +665,29 @@ var express = require('express'),
 			});
 		});
 		
+	});
+	
+	//Get image image tags by id
+	app.get('/api/image-image-tags/:id', function (req, res) {
+		var client = new pg.Client(conString);
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			var results = [];
+			// SQL Query > Select Data
+			var query = client.query("SELECT * FROM image_image_tags WHERE image_id = " + req.params.id + ";");
+			// Stream results back one row at a time
+			query.on('row', function(row) {
+				results.push(row);
+			});
+
+			// After all data is returned, close connection and return results
+			query.on('end', function() {	
+				client.end();
+				return res.json(results);
+			});
+		});	
 	});
 	
 	// GET images.

@@ -1,5 +1,6 @@
-angular.module('images.controller', [])
-.controller('imagesController', function($scope, $http, $location, $routeParams){
+angular.module('images.controller', ['angularFileUpload'])
+.controller('imagesController', function($scope, $http, $location, $routeParams, FileUploader){
+    $scope.uploader = new FileUploader();
 
     $scope.tags = [];
     $scope.selectedTags = [];
