@@ -2,7 +2,8 @@
   <h1>Add Image</h1>
     <form method="post" name="addImageForm">
       <div class="form-group">
-        <input type="file" nv-file-select uploader="uploader"/><br/>
+        <label for="image">Upload Image</label>
+        <input id="image" type="file" nv-file-select uploader="uploader"/><br/>
             <ul>
                 <li ng-repeat="item in uploader.queue">
                     Name: <span ng-bind="item.file.name"></span><br/>

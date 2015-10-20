@@ -34,13 +34,11 @@ angular.module('editBlog.controller', [])
     function getBlogBlogTags() {
         $http.get('/api/blog-blog-tags/' + $routeParams.id)
         .success(function(data) {
-            if(data[0] !== undefined){
-                var selectedTag = {};
-                selectedTag = {
-                    id: data[0].blog_tag_id
-                };
-                $scope.selectedTags.push(selectedTag);
-            }
+            for(var i = 0; i < data.length; i++){
+                if(data !== undefined){
+                $scope.selectedTags.push({id:data[i].blog_tag_id});
+                }   
+            }    
         }).
         error(function(data) {
             console.log("error");
@@ -64,7 +62,8 @@ angular.module('editBlog.controller', [])
             title: blog.title,
             user_id: 1,
             body: blog.body,
-            last_updated_user_id: 12
+            last_updated_user_id: 16,
+            tags: [7,3]
         };
         
         $http.put('/api/blogs/' + updatedBlog.id, updatedBlog)

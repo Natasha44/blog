@@ -34,13 +34,12 @@ angular.module('editImage.controller', [])
     function getImageImageTags() {
         $http.get('/api/image-image-tags/' + $routeParams.id)
         .success(function(data) {
-            if(data[0] !== undefined){
-                var selectedTag = {};
-                selectedTag = {
-                    id: data[0].image_tag_id
-                };
-                    $scope.selectedTags.push(selectedTag);
-                }
+            for(var i = 0; i < data.length; i++){
+                if(data !== undefined){
+                $scope.selectedTags.push({id:data[i].image_tag_id});
+                console.log($scope.selectedTags);
+                }   
+            }
         }).
         error(function(data) {
             console.log("error");
@@ -62,7 +61,8 @@ angular.module('editImage.controller', [])
         var updatedImage = {
             file_path: image.file_path,
 			title: image.title,
-            id: $routeParams.id
+            id: $routeParams.id,
+            tags: [8,9]
         };
         
         $http.put('/api/images/' + updatedImage.id, updatedImage)
