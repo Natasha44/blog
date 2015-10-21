@@ -13,6 +13,7 @@ angular.module('app', [
         'images',
         'editImage',
         'editImageTag',
+        'login',
         'ngRoute'
     ])
     .config(function($routeProvider){
@@ -20,6 +21,10 @@ angular.module('app', [
         .when('/', {
             templateUrl: 'app/templates/home.html',
             controller: 'homeController'
+        })
+        .when('/login', {
+            templateUrl: 'app/templates/login.html',
+            controller: 'loginController'
         })
         .when('/blogs', {
             templateUrl: 'app/templates/blogs.html',

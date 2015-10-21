@@ -4,10 +4,21 @@ var express = require('express'),
 	config = require('./config'),
 	app = express(),
 	port = process.env.port || config.defaultPort,
-	conString = config.dbConnectionString;
+	conString = config.dbConnectionString,
+	passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 	
 	app.use(express.static(__dirname + '/public'));
 	app.use(bodyParser.json());
+	app.use(passport.initialize());
+	
+	passport.use(new LocalStrategy(	
+  		function(username, password, done) {
+	  		console.log("passport");
+
+	  		return done(null, {username: username, password: password});
+		}
+	));
 	
 	// Start server.
 	app.listen(port, function () {
@@ -853,3 +864,18 @@ var express = require('express'),
 		});
 		
 	});
+	
+app.post('/api/login',
+  passport.authenticate('local'), function(req,res){
+	  
+	  res.json("logged in");
+  });
+
+app.get('/loginFailure', function(req, res, next) {
+  res.send('Failed to authenticate');
+});
+
+app.get('/loginSuccess', function(req, res, next) {
+  res.send('Successfully authenticated');
+});
+	 
