@@ -391,15 +391,28 @@ var express = require('express'),
 	app.put('/api/blogs/:id', function (req, res) {
 		var client = new pg.Client(conString),
 			query = "UPDATE blogs " +
-			"SET title = '" + req.body.title + 
-			"', user_id = " + req.body.user_id +
-			", date_created = now()," +
-			"body = '" + req.body.body +
-			"', last_updated = now(), " +
-			"last_updated_user_id = " + req.body.user_id + 
-			"WHERE id = " + req.params.id + ";";
-		
+				"SET title = '" + req.body.title + 
+				"', user_id = " + req.body.user_id +
+				", date_created = now()," +
+				"body = '" + req.body.body +
+				"', last_updated = now(), " +
+				"last_updated_user_id = " + req.body.user_id + 
+				"WHERE id = " + req.params.id + ";",
+				blogTagsQuery = "INSERT INTO blog_blog_tags (blog_id, blog_tag_id) VALUES ";
+				
+				console.log(req.body.tags.length);
+				for(var i = 0; i < req.body.tags.length; i++){
+					 blogTagsQuery += "(" + req.params.id+ "," +req.body.tags[i]+")";
+					 if(i < req.body.tags.length -1){
+						 blogTagsQuery += ", ";
+					 }
+					 else{
+						 blogTagsQuery += ";";
+					 }
+				}
+
 		console.log(query);
+		console.log(blogTagsQuery);
 		
 		client.connect(function(err) {
 			if(err) {
@@ -409,15 +422,21 @@ var express = require('express'),
 				if (err) {
 					return console.error('error running query', err);
 				}
-				client.end();
-				console.log(result);
-				res.json(result);
+				
+				client.query(blogTagsQuery, function(err, tagResult) {
+					if (err) {
+						return console.error('error running query', err);
+					}
+					client.end();
+					console.log(result);
+					console.log(tagResult);
+					res.json(result);
+				});
 			});
-		});
-		
+		});	
 	});
 	
-	//Get blog blog tags
+	//Get blog blog tags by id
 		app.get('/api/blog-blog-tags/:id', function (req, res) {
 		var client = new pg.Client(conString);
 		client.connect(function(err) {
@@ -667,6 +686,29 @@ var express = require('express'),
 		
 	});
 	
+	//Get image image tags by id
+	app.get('/api/image-image-tags/:id', function (req, res) {
+		var client = new pg.Client(conString);
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			var results = [];
+			// SQL Query > Select Data
+			var query = client.query("SELECT * FROM image_image_tags WHERE image_id = " + req.params.id + ";");
+			// Stream results back one row at a time
+			query.on('row', function(row) {
+				results.push(row);
+			});
+
+			// After all data is returned, close connection and return results
+			query.on('end', function() {	
+				client.end();
+				return res.json(results);
+			});
+		});	
+	});
+	
 	// GET images.
 	app.get('/api/images', function (req, res) {
 		
@@ -751,9 +793,20 @@ var express = require('express'),
 			query = "UPDATE images SET " + 
 					"file_path = '"+ req.body.file_path + "', " +
 					"title = '"+ req.body.title + "' " +
-					"WHERE id = " + req.params.id + ";";
-		
+					"WHERE id = " + req.params.id + ";",
+			imageTagsQuery = "INSERT INTO image_image_tags (image_id, image_tag_id) VALUES ";
+				for(var i = 0; i < req.body.tags.length; i++){
+					 imageTagsQuery += "(" + req.params.id+ "," +req.body.tags[i]+")";
+					 if(i < req.body.tags.length -1){
+						 imageTagsQuery += ", ";
+					 }
+					 else{
+						 imageTagsQuery += ";";
+					 }
+				}
+
 		console.log(query);
+		console.log(imageTagsQuery);
 		
 		client.connect(function(err) {
 			if(err) {
@@ -763,9 +816,15 @@ var express = require('express'),
 				if (err) {
 					return console.error('error running query', err);
 				}
-				client.end();
-				console.log(result);
-				res.json(result);
+				client.query(imageTagsQuery, function(err, tagResult) {
+					if (err) {
+						return console.error('error running query', err);
+					}
+					client.end();
+					console.log(result);
+					console.log(tagResult);
+					res.json(result);
+				});
 			});
 		});
 		

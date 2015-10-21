@@ -31,8 +31,24 @@ angular.module('editImage.controller', [])
         })
     }
     
+    function getImageImageTags() {
+        $http.get('/api/image-image-tags/' + $routeParams.id)
+        .success(function(data) {
+            for(var i = 0; i < data.length; i++){
+                if(data !== undefined){
+                $scope.selectedTags.push({id:data[i].image_tag_id});
+                console.log($scope.selectedTags);
+                }   
+            }
+        }).
+        error(function(data) {
+            console.log("error");
+        });
+    }
+    
     getImageById();
     getImageTags();
+    getImageImageTags();
     
     $scope.tagSettings = {
         smartButtonMaxItems: 3,
@@ -45,7 +61,8 @@ angular.module('editImage.controller', [])
         var updatedImage = {
             file_path: image.file_path,
 			title: image.title,
-            id: $routeParams.id
+            id: $routeParams.id,
+            tags: [8,9]
         };
         
         $http.put('/api/images/' + updatedImage.id, updatedImage)
