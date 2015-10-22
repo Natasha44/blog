@@ -57,15 +57,23 @@ angular.module('editBlog.controller', [])
     };
     
     $scope.saveChanges = function(blog){
+        var tag = [];
+        for(var i = 0; i < $scope.selectedTags.length; i++){
+                if($scope.selectedTags.length !== undefined){
+                tag.push($scope.selectedTags[i].id);
+                }   
+            }  
+           
         var updatedBlog = {
             id: $routeParams.id,
             title: blog.title,
-            user_id: 1,
+            user_id: blog.user_id,
             body: blog.body,
-            last_updated_user_id: 16,
-            tags: [7,3]
+            last_updated_user_id: blog.user_id,
+            tags: tag
+            
         };
-        
+       
         $http.put('/api/blogs/' + updatedBlog.id, updatedBlog)
         .success(function(data){
             $location.path('/blogs');

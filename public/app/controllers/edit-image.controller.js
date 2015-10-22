@@ -37,7 +37,6 @@ angular.module('editImage.controller', [])
             for(var i = 0; i < data.length; i++){
                 if(data !== undefined){
                 $scope.selectedTags.push({id:data[i].image_tag_id});
-                console.log($scope.selectedTags);
                 }   
             }
         }).
@@ -58,11 +57,18 @@ angular.module('editImage.controller', [])
     };
     
     $scope.saveChanges = function(image){
+        var tag = [];
+        for(var i = 0; i < $scope.selectedTags.length; i++){
+                if($scope.selectedTags.length !== undefined){
+                tag.push($scope.selectedTags[i].id);
+                }   
+            }  
+            
         var updatedImage = {
             file_path: image.file_path,
 			title: image.title,
             id: $routeParams.id,
-            tags: [8,9]
+            tags: tag
         };
         
         $http.put('/api/images/' + updatedImage.id, updatedImage)

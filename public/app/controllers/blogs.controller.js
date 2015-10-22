@@ -67,14 +67,11 @@ angular.module('blogs.controller', ['angularjs-dropdown-multiselect'])
     };
     
     $scope.dropboxitemselected = function (user) {
-        console.log(user);
         $scope.selectedUser.first_name = user.first_name;
         $scope.selectedUser.id = user.id;
     };
 
     $scope.addBlog = function() {
-        
-        console.log($scope.selectedUser);
         var newBlog = {
             title: $scope.blog.title,
             user_id: $scope.selectedUser.id,

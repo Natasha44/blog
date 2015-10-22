@@ -25,7 +25,6 @@ angular.module('users.controller', [])
         
         $http.post('/api/users', newUser)
         .success(function(data){
-            console.log(newUser);
             $location.path('/users');
         })
         .error(function(data){

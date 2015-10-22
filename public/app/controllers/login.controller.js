@@ -9,7 +9,7 @@ angular.module('login.controller', [])
 	
 		$http.post('/api/login', user)
 		.success(function(){
-			console.log("ayyyyy");
+
 		})
 		.error(function(err){
 			console.log(err);	

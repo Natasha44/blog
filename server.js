@@ -14,7 +14,7 @@ var express = require('express'),
 	
 	passport.use(new LocalStrategy(	
   		function(username, password, done) {
-	  		console.log("passport");
+
 
 	  		return done(null, {username: username, password: password});
 		}
@@ -80,7 +80,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
@@ -99,9 +98,7 @@ var express = require('express'),
 					"'" + req.body.password_hash + "', " +
 					"'" + req.body.email + "', " +
 					"'" + req.body.role_id + "');";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -111,7 +108,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -123,9 +119,7 @@ var express = require('express'),
 
 		var client = new pg.Client(conString),
 			query = "DELETE FROM users WHERE id = " + req.params.id + ";";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -135,7 +129,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -144,6 +137,7 @@ var express = require('express'),
 	
 	// UPDATE user.
 	app.put('/api/users/:id', function (req, res) {
+		
 		var client = new pg.Client(conString),
 			query = "UPDATE users " + 
 			"SET first_name = '" + req.body.first_name + "', " +
@@ -153,9 +147,7 @@ var express = require('express'),
 			"email= '" +  req.body.email + "', " +
 			"role_id = '" +  req.body.role_id + "'" +
 			"WHERE id = " + req.params.id + ";";
-			
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -165,7 +157,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -187,7 +178,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
@@ -208,7 +198,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
@@ -220,8 +209,6 @@ var express = require('express'),
 		var client = new pg.Client(conString),
 			query = "INSERT INTO roles (name) VALUES ('" + req.body.name + "')";
 		
-		console.log(query);
-		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -231,7 +218,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -244,8 +230,6 @@ var express = require('express'),
 		var client = new pg.Client(conString),
 			query = "DELETE FROM roles WHERE id = " + req.params.id + ";";
 		
-		console.log(query);
-		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -255,7 +239,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -267,8 +250,6 @@ var express = require('express'),
 		var client = new pg.Client(conString),
 			query = "UPDATE roles SET name = '"+ req.body.name +"' WHERE id = " + req.params.id + ";";
 		
-		console.log(query);
-		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -278,7 +259,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -321,7 +301,7 @@ var express = require('express'),
 	
 	// GET blog by id.
 	app.get('/api/blogs/:id', function (req, res) {
-		
+			
 		var client = new pg.Client(conString),
 			query = "SELECT array_to_json(array_agg(blogs)) FROM blogs WHERE id = " + req.params.id + ";";
 		
@@ -334,14 +314,13 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
 	});
 	
 	// POST blogs.
-	app.post('/api/blogs', function (req, res) {
+	app.post('/api/blogs', function (req, res) {	
 		
 		var client = new pg.Client(conString),
 		query = "INSERT INTO blogs " +
@@ -353,8 +332,6 @@ var express = require('express'),
 				"'" + req.body.body + "', " +
 				"now(), " +
 				"'" + req.body.last_updated_user_id + "');";
-		
-		console.log(query);
 				
 		client.connect(function(err) {
 			if(err) {
@@ -365,7 +342,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -375,12 +351,8 @@ var express = require('express'),
 	// DELETE blog.
 	app.delete('/api/blogs/:id', function (req, res) {
 		
-		console.log(req.params);
-		
 		var client = new pg.Client(conString),
 			query = "DELETE FROM blogs WHERE id = " + req.params.id + ";";
-		
-		console.log(query);
 		
 		client.connect(function(err) {
 			if(err) {
@@ -391,7 +363,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -400,6 +371,7 @@ var express = require('express'),
 
 	// UPDATE blog.
 	app.put('/api/blogs/:id', function (req, res) {
+		
 		var client = new pg.Client(conString),
 			query = "UPDATE blogs " +
 				"SET title = '" + req.body.title + 
@@ -409,46 +381,47 @@ var express = require('express'),
 				"', last_updated = now(), " +
 				"last_updated_user_id = " + req.body.user_id + 
 				"WHERE id = " + req.params.id + ";",
+				deleteBlogTagsQuery = "DELETE FROM blog_blog_tags WHERE blog_id = " + req.params.id + ";",
 				blogTagsQuery = "INSERT INTO blog_blog_tags (blog_id, blog_tag_id) VALUES ";
 				
-				console.log(req.body.tags.length);
+				
 				for(var i = 0; i < req.body.tags.length; i++){
-					 blogTagsQuery += "(" + req.params.id+ "," +req.body.tags[i]+")";
+					 blogTagsQuery += "(" + req.params.id + "," +req.body.tags[i]+")";
 					 if(i < req.body.tags.length -1){
 						 blogTagsQuery += ", ";
 					 }
 					 else{
 						 blogTagsQuery += ";";
 					 }
-				}
-
-		console.log(query);
-		console.log(blogTagsQuery);
-		
+				}		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
 			}
-			client.query(query, function(err, result) {
+			client.query(deleteBlogTagsQuery, function(err, result) {
 				if (err) {
 					return console.error('error running query', err);
 				}
 				
-				client.query(blogTagsQuery, function(err, tagResult) {
+				client.query(query, function(err, tagResult) {
 					if (err) {
 						return console.error('error running query', err);
 					}
-					client.end();
-					console.log(result);
-					console.log(tagResult);
-					res.json(result);
+					client.query(blogTagsQuery, function(err, deleteTagResult) {
+						if (err) {
+							return console.error('error running query', err);
+						}
+						client.end();
+						res.json(result);
+					});
 				});
 			});
 		});	
 	});
 	
 	//Get blog blog tags by id
-		app.get('/api/blog-blog-tags/:id', function (req, res) {
+	app.get('/api/blog-blog-tags/:id', function (req, res) {
+			
 		var client = new pg.Client(conString);
 		client.connect(function(err) {
 			if(err) {
@@ -485,7 +458,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
@@ -507,7 +479,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
@@ -518,9 +489,7 @@ var express = require('express'),
 		
 		var client = new pg.Client(conString),
 			query = "INSERT INTO blog_tags (name) VALUES ('" + req.body.name + "')";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -530,7 +499,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -542,9 +510,7 @@ var express = require('express'),
 		
 		var client = new pg.Client(conString),
 			query = "DELETE FROM blog_tags WHERE id = " + req.params.id + ";";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -554,20 +520,51 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
+	});
+	
+	// DELETE blogs tags by blog id.
+	app.delete('/api/blog-blog-tags/:id', function (req, res) {
+		var client = new pg.Client(conString),
+			query = "DELETE FROM blog-blog-tags WHERE blog_id = " + req.params.id + ";",
+			imageTagsQuery = "INSERT INTO image_image_tags (image_id, image_tag_id) VALUES ";
+				for(var i = 0; i < req.body.tags.length; i++){
+					 imageTagsQuery += "(" + req.params.id+ "," +req.body.tags[i]+")";
+					 if(i < req.body.tags.length -1){
+						 imageTagsQuery += ", ";
+					 }
+					 else{
+						 imageTagsQuery += ";";
+					 }
+				}
 		
+		client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query(query, function(err, result) {
+				if (err) {
+					return console.error('error running query', err);
+				}
+				client.query(imageTagsQuery, function(err, tagResult) {
+					if (err) {
+						return console.error('error running query', err);
+					}
+					client.end();
+					res.json(result);
+				});
+			});
+		});
 	});
 	
 	// UPDATE blog tags.
 	app.put('/api/blog-tags/:id', function (req, res) {
+		
 		var client = new pg.Client(conString),
 			query = "UPDATE blog_tags SET name = '"+ req.body.name +"' WHERE id = " + req.params.id + ";";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -577,7 +574,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -599,7 +595,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
@@ -620,7 +615,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
@@ -631,9 +625,7 @@ var express = require('express'),
 		
 		var client = new pg.Client(conString),
 			query = "INSERT INTO image_tags (name) VALUES ('" + req.body.name + "')";
-		
-		console.log(query);
-		
+			
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -643,7 +635,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -655,9 +646,7 @@ var express = require('express'),
 		
 		var client = new pg.Client(conString),
 			query = "DELETE FROM image_tags WHERE id = " + req.params.id + ";";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -667,7 +656,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -676,11 +664,10 @@ var express = require('express'),
 
 	// UPDATE image tags.
 	app.put('/api/image-tags/:id', function (req, res) {
+		
 		var client = new pg.Client(conString),
 			query = "UPDATE image_tags SET name = '"+ req.body.name +"' WHERE id = " + req.params.id + ";";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -690,7 +677,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -699,6 +685,7 @@ var express = require('express'),
 	
 	//Get image image tags by id
 	app.get('/api/image-image-tags/:id', function (req, res) {
+		
 		var client = new pg.Client(conString);
 		client.connect(function(err) {
 			if(err) {
@@ -761,13 +748,11 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result.rows[0].array_to_json);
 				res.json(result.rows[0].array_to_json);
 			});
 		});
 		
 	});
-	
 	
 	// POST images.
 	app.post('/api/images', function (req, res) {
@@ -780,8 +765,6 @@ var express = require('express'),
 					"now(), " +
 					"'" + req.body.user_id + "');";
 		
-		console.log(query);
-		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -791,7 +774,6 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
@@ -805,6 +787,7 @@ var express = require('express'),
 					"file_path = '"+ req.body.file_path + "', " +
 					"title = '"+ req.body.title + "' " +
 					"WHERE id = " + req.params.id + ";",
+			deleteTagsQuery = "DELETE FROM image_image_tags WHERE image_id = " + req.params.id + ";",
 			imageTagsQuery = "INSERT INTO image_image_tags (image_id, image_tag_id) VALUES ";
 				for(var i = 0; i < req.body.tags.length; i++){
 					 imageTagsQuery += "(" + req.params.id+ "," +req.body.tags[i]+")";
@@ -815,26 +798,26 @@ var express = require('express'),
 						 imageTagsQuery += ";";
 					 }
 				}
-
-		console.log(query);
-		console.log(imageTagsQuery);
 		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
 			}
-			client.query(query, function(err, result) {
+			client.query(deleteTagsQuery, function(err, result) {
 				if (err) {
 					return console.error('error running query', err);
 				}
-				client.query(imageTagsQuery, function(err, tagResult) {
+				client.query(query, function(err, result) {
 					if (err) {
 						return console.error('error running query', err);
 					}
-					client.end();
-					console.log(result);
-					console.log(tagResult);
-					res.json(result);
+					client.query(imageTagsQuery, function(err, tagResult) {
+						if (err) {
+							return console.error('error running query', err);
+						}
+						client.end();
+						res.json(result);
+					});
 				});
 			});
 		});
@@ -846,9 +829,7 @@ var express = require('express'),
 		
 		var client = new pg.Client(conString),
 			query = "DELETE FROM images WHERE id = " + req.params.id + ";";
-		
-		console.log(query);
-		
+
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -858,24 +839,23 @@ var express = require('express'),
 					return console.error('error running query', err);
 				}
 				client.end();
-				console.log(result);
 				res.json(result);
 			});
 		});
 		
 	});
 	
-app.post('/api/login',
-  passport.authenticate('local'), function(req,res){
-	  
-	  res.json("logged in");
-  });
-
-app.get('/loginFailure', function(req, res, next) {
-  res.send('Failed to authenticate');
-});
-
-app.get('/loginSuccess', function(req, res, next) {
-  res.send('Successfully authenticated');
-});
+	app.post('/api/login',
+	passport.authenticate('local'), function(req,res){
+		
+		res.json("logged in");
+	});
+	
+	app.get('/loginFailure', function(req, res, next) {
+	res.send('Failed to authenticate');
+	});
+	
+	app.get('/loginSuccess', function(req, res, next) {
+	res.send('Successfully authenticated');
+	});
 	 
