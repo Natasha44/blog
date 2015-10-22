@@ -1,8 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Playfair+Display);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 
-$serif-font: "Playfair Display", serif;
 $sans-font: "Lato", sans-serif;
+
+.table {
+	margin-top: 20px;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {}
