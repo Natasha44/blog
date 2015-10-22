@@ -66,9 +66,9 @@ angular.module('blogs.controller', ['angularjs-dropdown-multiselect'])
     $scope.addBlog = function() {
         var newBlog = {
             title: $scope.blog.title,
-            user_id: 2,
+            user_id: 4,
             body: $scope.blog.body,
-            last_updated_user_id: 16
+            last_updated_user_id: 4
         };
         
         $http.post('/api/blogs', newBlog)
