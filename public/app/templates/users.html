@@ -2,24 +2,24 @@
    <h1>USERS</h1>
    <hr>
     <a href="/#/users/add" class="btn btn-default">Create User</a>
-    <table class="table table-stripped table-responsive">
-        <th>Id</th>
+    <table class="table table-striped table-bordered table-responsive">
+        <th class="short">Id</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
         <th>User Name</th>
         <th>Role Id</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th class="short">Edit</th>
+        <th class="short">Delete</th>
         <tr ng-repeat="user in users">
-            <td>{{ user.id }}</td>
+            <td class="short">{{ user.id }}</td>
             <td>{{ user.first_name }}</td>
             <td>{{ user.last_name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.user_name }}</td>
             <td>{{ user.name }}</td>
-            <td><a href="/#/users/edit/{{ user.id }}" class="btn btn-default">Edit</a></td>
-            <td><button class="btn btn-default" type="submit" ng-click="deleteUser(user.id)">Delete</button></td>
+            <td class="short"><a href="/#/users/edit/{{ user.id }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td class="short"><button class="btn btn-default btn-sm" type="submit" ng-click="deleteUser(user.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
         </tr>
     </table>
 </div>

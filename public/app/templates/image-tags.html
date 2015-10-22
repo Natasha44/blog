@@ -2,17 +2,17 @@
    <h1>IMAGE TAGS</h1>
    <hr>
     <a href="/#/image-tags/add" class="btn btn-default">Create Image Tag</a>
-    <table class="table table-stripped table-responsive">
-        <th>Id</th>
+    <table class="table table-striped table-bordered table-responsive">
+        <th class="short">Id</th>
         <th>Name</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th class="short">Edit</th>
+        <th class="short">Delete</th>
         <tr ng-repeat="imageTag in imageTags">
-            <td>{{ imageTag.id }}</td>
+            <td class="short">{{ imageTag.id }}</td>
             <td>{{ imageTag.name }}</td>
-            <td><a href="/#/image-tags/edit/{{ imageTag.id }}" class="btn btn-default">Edit</a></td>
-            <td><button class="btn btn-default" type="submit" 
-            ng-click="deleteImageTag(imageTag.id)">Delete</button></td>
+            <td class="short"><a href="/#/image-tags/edit/{{ imageTag.id }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td class="short"><button class="btn btn-default btn-sm" type="submit" 
+            ng-click="deleteImageTag(imageTag.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
         </tr>
     </table>
 </div>

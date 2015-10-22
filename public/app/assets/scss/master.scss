@@ -2,8 +2,30 @@
 
 $sans-font: "Lato", sans-serif;
 
+h1 {
+	font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6, p, button, li, td, th, a {
+	font-family: $sans-font;
+}
+
+p {
+	font-size: 16px;
+}
+
 .table {
 	margin-top: 20px;
+}
+
+.table>tbody>tr>td {
+	line-height: 30px;
+	font-size: 16px;
+}
+
+.short {
+	width: 50px;
+	text-align: center;
 }
 
 /* Small devices (tablets, 768px and up) */
