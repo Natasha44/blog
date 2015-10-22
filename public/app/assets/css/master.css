@@ -21,7 +21,8 @@ p {
 
 .navbar-default {
   background-color: #000;
-  border-radius: 0; }
+  border-radius: 0;
+  border-width: 0px; }
 
 .navbar-default .navbar-nav > li > a:hover {
   color: #fff;
