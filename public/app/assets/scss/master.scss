@@ -28,6 +28,26 @@ p {
 	text-align: center;
 }
 
+.navbar-default {
+	background-color: #000;
+	border-radius: 0;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+	background-color: #555;
+	color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #fff;
+	font-weight: 600;
+}
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {}
 
