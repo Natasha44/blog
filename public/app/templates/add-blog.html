@@ -12,6 +12,19 @@
       </div>
       <label for="blog-tags">Blog Tags</label>
       <div ng-dropdown-multiselect="" options="tags" selected-model="selectedTags" extra-settings="tagSettings"></div><br>
+      <label for="blog-tags">Blog Tags</label>
+      <div class="dropdown">
+        <label for="users"> Select User </label>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{selectedUser.first_name}}
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu" >
+                <li ng-repeat="user in users"><a ng-click="dropboxitemselected(user)">{{user.first_name}}</a></li>
+            </ul>
+        </div>
+      </div>
       <button type="submit" class="btn btn-default" ng-click="addBlog()">Add Blog</button>
     </form>
 </div>

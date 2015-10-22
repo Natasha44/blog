@@ -3,11 +3,13 @@ angular.module('blogs.controller', ['angularjs-dropdown-multiselect'])
     
     $scope.tags = [];
     $scope.selectedTags = [];
+    $scope.selectedUser;
     
     function getUsers(){
         $http.get('/api/users')
         .success(function(data) {
             $scope.users = data;
+            $scope.selectedUser = $scope.users[0];
         }).
         error(function(data) {
             console.log("error");
@@ -55,20 +57,29 @@ angular.module('blogs.controller', ['angularjs-dropdown-multiselect'])
 
     getBlogs();
     getBlogTags();
-      
+    getUsers();
+    
     $scope.tagSettings = {
         smartButtonMaxItems: 3,
         smartButtonTextConverter: function(itemText, originalItem) {    
             return itemText;
         }
     };
+    
+    $scope.dropboxitemselected = function (user) {
+        console.log(user);
+        $scope.selectedUser.first_name = user.first_name;
+        $scope.selectedUser.id = user.id;
+    };
 
     $scope.addBlog = function() {
+        
+        console.log($scope.selectedUser);
         var newBlog = {
             title: $scope.blog.title,
-            user_id: 4,
+            user_id: $scope.selectedUser.id,
             body: $scope.blog.body,
-            last_updated_user_id: 4
+            last_updated_user_id: $scope.selectedUser.id
         };
         
         $http.post('/api/blogs', newBlog)
