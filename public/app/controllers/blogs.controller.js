@@ -72,11 +72,19 @@ angular.module('blogs.controller', ['angularjs-dropdown-multiselect'])
     };
 
     $scope.addBlog = function() {
+        var tag = [];
+        for(var i = 0; i < $scope.selectedTags.length; i++){
+            if($scope.selectedTags.length !== undefined){
+                tag.push($scope.selectedTags[i].id);
+            }   
+        }
+         console.log(tag);
         var newBlog = {
             title: $scope.blog.title,
             user_id: $scope.selectedUser.id,
             body: $scope.blog.body,
-            last_updated_user_id: $scope.selectedUser.id
+            last_updated_user_id: $scope.selectedUser.id,
+            tags: tag
         };
         
         $http.post('/api/blogs', newBlog)

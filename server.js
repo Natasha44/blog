@@ -332,7 +332,18 @@ var express = require('express'),
 				"'" + req.body.body + "', " +
 				"now(), " +
 				"'" + req.body.last_updated_user_id + "');";
+		/*blogTagsQuery = "INSERT INTO blog_blog_tags (blog_id, blog_tag_id) VALUES ";
 				
+		for(var i = 0; i < req.body.tags.length; i++){
+			blogTagsQuery += "(" + req.params.id + "," +req.body.tags[i]+")";
+			if(i < req.body.tags.length -1){
+				blogTagsQuery += ", ";
+			}
+			else{
+				blogTagsQuery += ";";
+			}
+		}*/
+		
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -341,8 +352,13 @@ var express = require('express'),
 				if (err) {
 					return console.error('error running query', err);
 				}
-				client.end();
-				res.json(result);
+				/*client.query(blogTagsQuery, function(err, result) {
+					if (err) {
+						return console.error('error running query', err);
+					}*/
+					client.end();
+					res.json(result);
+				//});
 			});
 		});
 		
@@ -383,8 +399,7 @@ var express = require('express'),
 				"WHERE id = " + req.params.id + ";",
 				deleteBlogTagsQuery = "DELETE FROM blog_blog_tags WHERE blog_id = " + req.params.id + ";",
 				blogTagsQuery = "INSERT INTO blog_blog_tags (blog_id, blog_tag_id) VALUES ";
-				
-				
+						
 				for(var i = 0; i < req.body.tags.length; i++){
 					 blogTagsQuery += "(" + req.params.id + "," +req.body.tags[i]+")";
 					 if(i < req.body.tags.length -1){
@@ -393,7 +408,7 @@ var express = require('express'),
 					 else{
 						 blogTagsQuery += ";";
 					 }
-				}		
+				}
 		client.connect(function(err) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
@@ -402,18 +417,23 @@ var express = require('express'),
 				if (err) {
 					return console.error('error running query', err);
 				}
-				
 				client.query(query, function(err, tagResult) {
 					if (err) {
 						return console.error('error running query', err);
 					}
-					client.query(blogTagsQuery, function(err, deleteTagResult) {
-						if (err) {
-							return console.error('error running query', err);
-						}
+					if(req.body.tags.length !== 0){
+						client.query(blogTagsQuery, function(err, deleteTagResult) {
+							if (err) {
+								return console.error('error running query', err);
+							}
+							client.end();
+							res.json(result);
+						});
+					}
+					else {
 						client.end();
 						res.json(result);
-					});
+					}
 				});
 			});
 		});	
@@ -811,13 +831,19 @@ var express = require('express'),
 					if (err) {
 						return console.error('error running query', err);
 					}
-					client.query(imageTagsQuery, function(err, tagResult) {
-						if (err) {
-							return console.error('error running query', err);
-						}
+					if (req.body.tags.length !== 0){
+						client.query(imageTagsQuery, function(err, tagResult) {
+							if (err) {
+								return console.error('error running query', err);
+							}
+							client.end();
+							res.json(result);
+						});	
+					}
+					else {
 						client.end();
 						res.json(result);
-					});
+					}	
 				});
 			});
 		});

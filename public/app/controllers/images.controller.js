@@ -8,7 +8,11 @@ angular.module('images.controller', ['angularFileUpload'])
     function getImages() {
         $http.get('/api/images')
         .success(function(data){
-            $scope.images = data;  
+            $scope.images = data;
+            for(var i = 0; i < $scope.images.length; i++){
+                var upload_date = new Date($scope.images[i].upload_date);
+                $scope.images[i].upload_date = upload_date.toDateString() + ' ' + upload_date.toLocaleTimeString();
+            }
         })
         .error(function(data){
             console.log("error");
