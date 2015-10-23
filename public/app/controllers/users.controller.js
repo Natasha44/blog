@@ -11,8 +11,25 @@ angular.module('users.controller', [])
         })
     }
     
-    getUsers();
+    function getRoles() {
+        $http.get('/api/roles')
+        .success(function(data){
+            $scope.roles = data;
+            $scope.selectedRole = $scope.roles[0];
+        })
+        .error(function(data){
+            console.log("error");
+        })
+    }
     
+    getUsers();
+    getRoles();
+    
+    $scope.dropboxitemselected = function (role) {
+        $scope.selectedRole.name = role.name;
+        $scope.selectedRole.id = role.id;
+    };
+        
     $scope.addUser = function(){
         var newUser = {
             first_name: $scope.user.first_name,
@@ -20,7 +37,7 @@ angular.module('users.controller', [])
             password_hash: $scope.user.password,
             email: $scope.user.email,
             user_name: $scope.user.user_name,
-            role_id: 2
+            role_id: $scope.selectedRole.id
         }
         
         $http.post('/api/users', newUser)
