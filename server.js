@@ -356,6 +356,7 @@ var express = require('express'),
 					if (err) {
 						return console.error('error running query', err);
 					}*/
+					console.log(result);
 					client.end();
 					res.json(result);
 				//});
